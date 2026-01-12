@@ -11,5 +11,5 @@ test('user can add a todo item', async ({ page }) => {
 
   // Assert
   const todo = page.getByTestId('todo-title').filter({ hasText: 'Buy milk' });
-  await expect(todo).toBeVisible();
+  await expect(todo).toBeVisible(); 
 });
