@@ -1,227 +1,230 @@
-<<<<<<< HEAD
+# PW TodoMVC - Automation Testing Project
 # todo-list
-=======
-# TodoMVC Test Automation Framework
 
 ## Project Overview
 
-**Project Name:** TodoMVC - From 0 to a Framework
-
-This is a test automation framework built with **Playwright** and **TypeScript** for testing the TodoMVC application. The project follows the **Page Object Model (POM)** design pattern to create a scalable, maintainable, and reusable test framework.
-
-### Project Goals
-
-- Automate functional testing of the TodoMVC application
-- Build a robust, extensible test framework from scratch
-- Follow industry best practices and design patterns
-- Provide clear documentation and easy onboarding for new team members
+Training project for learning automation testing with Playwright. Testing TodoMVC application using TypeScript and modern testing practices.
 
 ---
 
-## Project Structure
+## Language and Version
+
+- **Language**: TypeScript
+- **Version**: 5.x
+
+## Runtime and Version
+
+- **Runtime**: Node.js
+- **Version**: 18.x or higher
+
+## Automation Framework
+
+- **Framework**: Playwright
+- **Version**: Latest (@playwright/test)
+
+## Reporting Tools
+
+- **Built-in**: Playwright HTML Reporter
+- **UI Mode**: Playwright Test UI Runner
+- **Report Command**: `npx playwright show-report`
+
+## Relevant Configurations
+
+### Base URL
+```
+https://demo.playwright.dev/todomvc/
+```
+
+### Configuration File
+```typescript
+testDir: './tests'
+baseURL: 'https://demo.playwright.dev/todomvc/'
+timeout: 30000
+expect.timeout: 5000
+```
+
+---
+
+## Project Real Structure
 
 ```
 pw_todo/
-├── tests/                    # Test files directory
-│   ├── example.spec.ts      # Example test file
-│   └── ...
-├── pages/                    # Page Object Model classes
-│   ├── basePage.ts          # Base page class with common methods
-│   ├── todoPage.ts          # Todo application page object
-│   └── ...
-├── fixtures/                # Test fixtures and data
-│   ├── testData.ts          # Test data and constants
-│   └── ...
-├── utils/                   # Utility functions
-│   ├── helpers.ts           # Helper functions
-│   └── ...
-├── playwright.config.ts     # Playwright configuration
-├── tsconfig.json           # TypeScript configuration
-├── package.json            # Project dependencies
-└── README.md              # Project documentation
+├── tests/
+│   ├── add-todo.spec.ts              # Iteration 1: Single todo addition
+│   └── add-multiple-todo.spec.ts     # Iteration 2: Multi-step todo workflow
+├── playwright.config.ts
+├── tsconfig.json
+├── tsconfig.node.json
+├── package.json
+├── package-lock.json
+└── README.md
 ```
 
-### Folder Descriptions
-
-- **tests/**: Contains all test specifications. Test files follow the naming convention `*.spec.ts`
-- **pages/**: Contains Page Object classes that encapsulate interactions with specific pages or features. Promotes code reusability and reduces maintenance overhead
-- **fixtures/**: Stores test data, constants, and shared test setup configurations
-- **utils/**: Contains helper functions and utility modules used across tests
-
 ---
 
-## Technology Stack
+## Execution Strategy
 
-- **Playwright**: Modern end-to-end testing framework
-- **TypeScript**: Provides type safety and better code maintainability
-- **Node.js**: JavaScript runtime for running tests
-
----
-
-## Main Flows & Functionalities
-
-### 1. **Test Execution**
-   - Run all tests in the project
-   - Run tests in UI mode for interactive debugging
-   - Run tests in headed mode to see browser automation
-   - Run tests with debugging capabilities
-
-### 2. **Page Object Model (POM)**
-   - Encapsulates page-specific actions and locators
-   - Provides reusable methods for common interactions
-   - Centralizes element selectors for easy maintenance
-   - Reduces code duplication across tests
-
-### 3. **Test Organization**
-   - Tests are organized by feature or page
-   - Each test file focuses on specific functionality
-   - Shared utilities and fixtures support multiple test files
-
-### 4. **Browser Support**
-   - Tests run against Chromium, Firefox, and WebKit browsers
-   - Configuration for parallel execution across browsers
-   - Trace collection on failed tests for debugging
-
-### 5. **Configuration Management**
-   - Centralized configuration via `playwright.config.ts`
-   - Base URL preconfigured for the TodoMVC application
-   - Reporter setup for test results
-   - Retry and parallel execution settings
-
----
-
-## Setup Instructions
-
-### Prerequisites
-- **Node.js** (v14 or higher)
-- **npm** or **yarn** package manager
-
-### Installation
-
-1. Install project dependencies:
+### Run All Tests
 ```bash
-npm install
-```
-
-2. Playwright browsers will be automatically installed during the first test run.
-
----
-
-## Running Tests
-
-### Available npm Scripts
-
-- **`npm test`** - Run all tests
-- **`npm run test:ui`** - Run tests in UI mode (interactive runner with visual feedback)
-- **`npm run test:debug`** - Run tests in debug mode
-- **`npm run test:headed`** - Run tests with visible browser window
-
-### Examples
-
-```bash
-# Run all tests
 npm test
+```
 
-# Run tests in UI mode for interactive debugging
+### Run Tests with UI Mode (Interactive)
+```bash
 npm run test:ui
+```
 
-# Run tests in a specific file
-npx playwright test tests/example.spec.ts
+### Run Specific Test File
+```bash
+npx playwright test tests/add-todo.spec.ts
+```
 
-# Run tests with a specific browser
-npx playwright test --project=chromium
+### Run Tests in Debug Mode
+```bash
+npx playwright test --debug
+```
 
-# Run a specific test by name
-npx playwright test -g "test name"
+### View HTML Report
+```bash
+npx playwright show-report
 ```
 
 ---
 
-## Configuration
+## Project Iterations
 
-The `playwright.config.ts` file contains the main configuration:
+### Iteration 0 - Project Setup (TypeScript)
+**Status**: ✅ Completed
 
-- **baseURL**: `https://demo.playwright.dev/todomvc/` - The application URL for testing
-- **testDir**: `./tests` - Directory containing test files
-- **reporters**: HTML report generation
-- **projects**: Browser configurations (Chromium, Firefox, WebKit)
-- **retries**: Automatic retry on CI environment
-- **workers**: Parallel execution settings
+**Objectives**:
+- Initialize Playwright project with TypeScript
+- Configure baseURL in playwright.config.ts
+- Add test:ui script to package.json
 
----
-
-## Page Object Model Pattern
-
-The POM pattern improves test maintainability by:
-
-1. **Encapsulation**: Page logic is separated from test logic
-2. **Reusability**: Common actions are written once and used multiple times
-3. **Maintainability**: Changes to selectors only need to be made in one place
-4. **Readability**: Tests read like business workflows rather than technical implementations
-
-### Base Page Class
-
-The `BasePage` class provides common functionality used across all page objects:
-- Navigation methods
-- Wait mechanisms
-- Element interaction helpers
+**Deliverables**:
+- Playwright project initialized
+- `npm test` runs successfully
+- `npm run test:ui` launches UI runner
 
 ---
 
-## Continuous Integration
+### Iteration 1 - First Happy Path Test
+**Status**: ✅ Completed
 
-The framework is designed to work seamlessly in CI/CD pipelines:
+**Objectives**:
+- Create first end-to-end test
+- User creates a todo and sees it on the list
 
-- Automatic retry on failures
-- Parallel test execution
-- HTML report generation
-- Trace collection for debugging
+**Test File**: `tests/add-todo.spec.ts`
 
----
+**Test Scenario**:
+1. Navigate to application
+2. Fill input field with "Buy milk"
+3. Press Enter
+4. Assert todo is visible on the list
 
-## Roadmap & Future Enhancements
+**Key Selectors Used**:
+- Input field: `getByPlaceholder('What needs to be done?')`
+- Todo item: `getByTestId('todo-title')`
 
-As this project evolves, additional features will be added:
-
-- Advanced assertions and custom matchers
-- Data-driven testing capabilities
-- API testing integration
-- Performance monitoring
-- Advanced reporting and analytics
-- Docker integration for CI/CD
-
----
-
-## Documentation Updates
-
-This README will be continuously updated as new features, utilities, and patterns are added to the framework. Each iteration will document:
-
-- New functionality and how to use it
-- Updated project structure
-- New flows and capabilities
+**Status**: ✅ Test is stable and passes consistently
 
 ---
 
-## Contributing
+### Iteration 2 - Expand Test with Multiple Steps + Assertions
+**Status**: ✅ Completed
 
-When adding new tests or features:
+**Objectives**:
+- Create multi-step end-to-end test
+- Verify complete todo workflow with filters and counter
 
-1. Follow the existing folder structure
-2. Use the Page Object Model pattern for page interactions
-3. Write clear, descriptive test names
-4. Add comments for complex test logic
-5. Update this README with new functionality
+**Test File**: `tests/add-multiple-todo.spec.ts`
+
+**Test Scenario**:
+1. Add 3 todos ("Buy milk", "Walk the dog", "Learn Playwright")
+2. Verify all 3 todos are visible (count = 3)
+3. Mark first todo as completed
+4. Verify items left counter shows "2 items left"
+5. Switch to "Completed" filter - verify only 1 todo visible
+6. Switch to "Active" filter - verify 2 todos visible
+7. Switch to "All" filter - verify all 3 todos visible
+8. Click "Clear completed" button
+9. Verify only 2 active todos remain
+10. Verify counter shows "2 items left"
+
+**Key Selectors Used**:
+- Input field: `getByPlaceholder('What needs to be done?')`
+- Todo items: `getByTestId('todo-title')`
+- Checkbox: `locator('input[type="checkbox"]')`
+- Items counter: `getByTestId('todo-count')`
+- Filter links: `getByRole('link')`
+- Clear button: `getByRole('button', { name: 'Clear completed' })`
+
+**Status**: ✅ Test passes with all assertions verified
 
 ---
 
-## Support & Troubleshooting
+## Evidences and Debugging
 
-For issues with test execution or framework setup, check:
+### Test Execution Output
+```
+✅ Iteration 1: add-todo.spec.ts PASSED
+✅ Iteration 2: add-multiple-todo.spec.ts PASSED
+```
 
-- Playwright documentation: https://playwright.dev
-- Project configuration in `playwright.config.ts`
-- Browser compatibility in test reports
+### Running Tests Locally
+```bash
+npm test
+```
+Expected: All tests pass with green checkmarks
+
+### UI Mode Execution (Recommended for Debugging)
+```bash
+npm run test:ui
+```
+Features:
+- Step-by-step execution visualization
+- Real-time browser preview
+- Inspector for element selection
+- Pause and resume capability
+
+### Debug Mode
+```bash
+npx playwright test --debug
+```
+Launches Inspector tool to:
+- Step through each action
+- Inspect DOM elements
+- View network activity
+- Set breakpoints
+
+### View Test Report
+```bash
+npx playwright show-report
+```
+Displays:
+- Test results summary
+- Individual test details
+- Screenshots and traces
+- Error context
 
 ---
 
-**Last Updated:** 
+## Next Steps
+
+### Iteration 3 (Planned)
+- Add Page Object Model (POM) pattern
+- Refactor existing tests to use page objects
+- Create reusable page classes for TodoMVC
+
+### Future Iterations
+- Add more test scenarios (edit, delete todo)
+- Implement fixtures for test data
+- Add parallel execution configuration
+- Enhance error reporting
+
+---
+
+**Last Updated**: January 14, 2026
+**Framework Version**: Playwright Latest
+**TypeScript Version**: 5.x
