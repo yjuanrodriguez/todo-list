@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('user can manage todos with filters and counter', async ({ page }) => {
+test('user can add and manage todos with filters and counter', async ({ page }) => {
   await page.goto('https://demo.playwright.dev/todomvc/');
 
   const inputField = page.getByPlaceholder('What needs to be done?');
@@ -27,12 +27,10 @@ test('user can manage todos with filters and counter', async ({ page }) => {
   await completedFilter.click();
   await expect(page.locator('.todo-list li')).toHaveCount(1);
  
-
   const activeFilter = page.getByRole('link', { name: 'Active' });
   await activeFilter.click();
   await expect(page.locator('.todo-list li')).toHaveCount(2);
  
-  
   const allFilter = page.getByRole('link', { name: 'All' });
   await allFilter.click();
   await expect(page.locator('.todo-list li')).toHaveCount(3);
