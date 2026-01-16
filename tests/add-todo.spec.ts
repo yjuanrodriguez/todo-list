@@ -1,13 +1,10 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
+import { TodoPage } from '../pages/TodoPage';
 
 test('user can add a todo item', async ({ page }) => {
+  const todoPage = new TodoPage(page);
   
-  await page.goto('https://demo.playwright.dev/todomvc/');
- 
-  const input = page.getByPlaceholder('What needs to be done?');
-  await input.fill('Buy milk');
-  await input.press('Enter');
-
-  const todo = page.getByTestId('todo-title').filter({ hasText: 'Buy milk' });
-  await expect(todo).toBeVisible(); 
+  await todoPage.goto();
+  await todoPage.addTodo('Buy milk');
+  await todoPage.expectTodoVisible('Buy milk');
 });
