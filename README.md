@@ -51,6 +51,8 @@ pw_todo/
 ├── tests/
 │   ├── add-todo.spec.ts              # Iteration 1: Single todo addition
 │   └── add-multiple-todo.spec.ts     # Iteration 2: Multi-step todo workflow
+├── pages/
+│   └── TodoPage.ts                   # Iteration 3: Page Object Model
 ├── playwright.config.ts
 ├── tsconfig.json
 ├── tsconfig.node.json
@@ -163,12 +165,79 @@ npx playwright show-report
 
 ---
 
+### Iteration 3 - Page Object Model (TodoPage)
+**Status**: ✅ Completed
+
+**Objectives**:
+- Implement Page Object Model (POM) pattern
+- Make tests read like a story, not like a pile of locators
+- Create reusable page class with intuitive methods
+- Refactor existing tests to use page objects
+
+**Deliverables**:
+- `pages/TodoPage.ts` - Page Object class with all todo operations
+- Updated test files using only TodoPage methods
+- Tests are cleaner and more maintainable
+
+**Page Object Methods**:
+- `goto()` - Navigate to application
+- `addTodo(text)` - Add a new todo item
+- `toggleTodo(text)` - Mark a todo as completed
+- `filterActive()` - Show only active todos
+- `filterCompleted()` - Show only completed todos
+- `filterAll()` - Show all todos
+- `clearCompleted()` - Remove all completed todos
+- `expectTodoVisible(text)` - Assert todo is visible
+- `expectTodoCount(count)` - Assert total todo count
+- `expectItemsLeft(count)` - Assert items counter
+
+**Test Scenario - Iteration 1 (Refactored)**:
+```typescript
+const todoPage = new TodoPage(page);
+await todoPage.goto();
+await todoPage.addTodo('Buy milk');
+await todoPage.expectTodoVisible('Buy milk');
+```
+
+**Test Scenario - Iteration 2 (Refactored)**:
+```typescript
+const todoPage = new TodoPage(page);
+await todoPage.goto();
+await todoPage.addTodo('Buy milk');
+await todoPage.addTodo('Walk the dog');
+await todoPage.addTodo('Learn Playwright');
+await todoPage.expectTodoCount(3);
+await todoPage.toggleTodo('Buy milk');
+await todoPage.expectItemsLeft(2);
+await todoPage.filterCompleted();
+await todoPage.expectTodoCount(1);
+await todoPage.filterActive();
+await todoPage.expectTodoCount(2);
+await todoPage.filterAll();
+await todoPage.expectTodoCount(3);
+await todoPage.clearCompleted();
+await todoPage.expectTodoCount(2);
+await todoPage.expectItemsLeft(2);
+```
+
+**Key Benefits**:
+- Tests are more readable and maintainable
+- Locators are centralized in one place
+- Easy to update selectors when UI changes
+- Reusable methods across multiple tests
+- Code follows best practices and SOLID principles
+
+**Status**: ✅ All tests pass using Page Object Model
+
+---
+
 ## Evidences and Debugging
 
 ### Test Execution Output
 ```
 ✅ Iteration 1: add-todo.spec.ts PASSED
 ✅ Iteration 2: add-multiple-todo.spec.ts PASSED
+✅ Iteration 3: Tests using TodoPage POM PASSED
 ```
 
 ### Running Tests Locally
@@ -211,19 +280,20 @@ Displays:
 
 ## Next Steps
 
-### Iteration 3 (Planned)
-- Add Page Object Model (POM) pattern
-- Refactor existing tests to use page objects
-- Create reusable page classes for TodoMVC
+### Iteration 4 (Planned)
+- Add more test scenarios (edit todo, delete todo)
+- Extend TodoPage with additional methods
+- Implement test data fixtures for reusability
 
 ### Future Iterations
-- Add more test scenarios (edit, delete todo)
-- Implement fixtures for test data
+- Add page objects for other components
+- Implement custom fixtures for common test setup
 - Add parallel execution configuration
-- Enhance error reporting
+- Enhance error reporting and screenshots
+- Add performance and accessibility tests
 
 ---
 
-**Last Updated**: January 14, 2026
+**Last Updated**: January 16, 2026
 **Framework Version**: Playwright Latest
 **TypeScript Version**: 5.x

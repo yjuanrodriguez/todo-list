@@ -1,45 +1,33 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
+import { TodoPage } from '../pages/TodoPage';
 
 test('user can add and manage todos with filters and counter', async ({ page }) => {
-  await page.goto('https://demo.playwright.dev/todomvc/');
-
-  const inputField = page.getByPlaceholder('What needs to be done?');
+  const todoPage = new TodoPage(page);
   
-  await inputField.fill('Buy milk');
-  await inputField.press('Enter');
+  await todoPage.goto();
   
-  await inputField.fill('Walk the dog');
-  await inputField.press('Enter');
-  
-  await inputField.fill('Learn Playwright');
-  await inputField.press('Enter');
+  await todoPage.addTodo('Buy milk');
+  await todoPage.addTodo('Walk the dog');
+  await todoPage.addTodo('Learn Playwright');
 
-  const todos = page.locator('.todo-list li');
-  await expect(todos).toHaveCount(3);
+  await todoPage.expectTodoCount(3);
 
-  const firstTodoCheckbox = page.locator('input.toggle').first();
-  await firstTodoCheckbox.check();
-  
-  const itemsLeft = page.locator('.todo-count');
-  await expect(itemsLeft).toContainText('2 items left');
+  await todoPage.toggleTodo('Buy milk');
+  await todoPage.expectItemsLeft(2);
 
-  const completedFilter = page.getByRole('link', { name: 'Completed' });
-  await completedFilter.click();
-  await expect(page.locator('.todo-list li')).toHaveCount(1);
+  await todoPage.filterCompleted();
+  await todoPage.expectTodoCount(1);
  
-  const activeFilter = page.getByRole('link', { name: 'Active' });
-  await activeFilter.click();
-  await expect(page.locator('.todo-list li')).toHaveCount(2);
+  await todoPage.filterActive();
+  await todoPage.expectTodoCount(2);
  
-  const allFilter = page.getByRole('link', { name: 'All' });
-  await allFilter.click();
-  await expect(page.locator('.todo-list li')).toHaveCount(3);
+  await todoPage.filterAll();
+  await todoPage.expectTodoCount(3);
 
-  const clearCompletedButton = page.getByRole('button', { name: 'Clear completed' });
-  await clearCompletedButton.click();
+  await todoPage.clearCompleted();
 
-  await allFilter.click();
+  await todoPage.filterAll();
   
-  await expect(page.locator('.todo-list li')).toHaveCount(2);
-  await expect(itemsLeft).toContainText('2 items left');
+  await todoPage.expectTodoCount(2);
+  await todoPage.expectItemsLeft(2);
 });
