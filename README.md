@@ -1,7 +1,6 @@
 # PW TodoMVC - Automation Testing Project
 
 ## Project Overview
-
 Training project for learning automation testing with Playwright. Testing TodoMVC application using TypeScript and modern testing practices.
 
 ---
